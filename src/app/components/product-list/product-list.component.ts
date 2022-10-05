@@ -9,9 +9,22 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
+
   myProducts: Product[] = [];
   totalValue: number = 0;
   products: Product[] = [];
+  productChosen: Product = {
+    id: '',
+    title: '',
+    images: [],
+    price: 0,
+    description: '',
+    category: {
+      id: '',
+      name: '',
+    },
+  };
+
 
   constructor(
     private storeService: StoreService,
@@ -30,4 +43,19 @@ export class ProductListComponent implements OnInit {
     this.storeService.addProduct(product);
     this.totalValue = this.storeService.getTotalValue();
   }
+
+  showProductDetail = false;
+
+  toggleProductDetail() {
+    this.showProductDetail = !this.showProductDetail;
+  }
+
+  showDetails(id: string) {
+    this.productsService.getProduct(id).subscribe((data: Product) => {
+      this.productChosen = data;
+      this.toggleProductDetail();
+    });
+    
+  }
+
 }

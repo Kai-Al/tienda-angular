@@ -1,15 +1,24 @@
-<div>
-  <p>
-    Cantidad de productos en el carrito {{myProducts.length}}
-  </p>
-  <p>
-    Y el total es ${{totalValue}}
-  </p>
-</div>
+<button (click)="toggleProductDetail()">CLICK</button>
 <div class="products--grid">
   <app-product
     [product]="product"
     *ngFor="let product of products"
     (add)="addToCart($event)"
+    (productDetail)="showDetails($event)"
   ></app-product>
+</div>
+
+<div class="product-detail" [class.active]="showProductDetail">
+  <div *ngIf="productChosen">
+    <button (click)="toggleProductDetail()">Close</button>
+    <h3>{{productChosen.title}}</h3>
+    <swiper
+      [slidesPerView]="1"
+    >
+      <ng-template swiperSlide *ngFor="let imagen of productChosen.images">
+        <img [src]="imagen" >
+      </ng-template>
+    </swiper>
+    <p>{{productChosen.description}}</p>
+  </div>
 </div>
