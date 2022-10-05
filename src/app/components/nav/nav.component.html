@@ -1,0 +1,60 @@
+<div class="show-mobile">
+  <div>
+    <button (click)="toggleMenu()">
+      <img
+        src="https://img.icons8.com/ios-glyphs/2x/menu--v2.png"
+        alt="menu"
+      />
+    </button>
+    <a href="">
+      <img
+        src="https://img.icons8.com/office/2x/shop.png"
+        alt="logo"
+      />
+    </a>
+    <a href="">
+      <img
+        src="https://img.icons8.com/ios-glyphs/2x/shopping-cart.png"
+        alt="carro"
+      />
+    </a>
+  </div>
+  <div class="side-menu" [class.show]="showMenu">
+    <button (click)="toggleMenu()">Close</button>
+    <ul>
+        <li><a href="">All</a></li>
+        <li><a href="">Clothes</a></li>
+        <li><a href="">Electronics</a></li>
+      </ul>
+  </div>
+</div>
+
+
+<div class="hide-mobile">
+  <div>
+    <nav>
+      <a class="logo" href="">
+        <img
+          src="https://img.icons8.com/ios-glyphs/2x/menu--v2.png"
+          alt="menu"
+        />
+      </a>
+      <ul>
+        <li><a href="">All</a></li>
+        <li><a href="">Clothes</a></li>
+        <li><a href="">Electronics</a></li>
+      </ul>
+    </nav>
+    <div class="info">
+      <div class="account">Kavid@gmail.com</div>
+      <div>
+        <a href="">
+          <img
+            src="https://img.icons8.com/ios-glyphs/2x/shopping-cart.png"
+            alt="carro"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
