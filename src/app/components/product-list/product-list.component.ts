@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
+import Swal from 'sweetalert2';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list',
@@ -9,7 +11,6 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-
   myProducts: Product[] = [];
   totalValue: number = 0;
   products: Product[] = [];
@@ -25,6 +26,9 @@ export class ProductListComponent implements OnInit {
     },
   };
 
+  limit: number = 10;
+  offset: number = 0;
+  statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
     private storeService: StoreService,
@@ -34,9 +38,7 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts().subscribe((data: Product[]) => {
-      this.products = data;
-    });
+    this.loadMoreProducts();
   }
 
   addToCart(product: Product) {
@@ -51,11 +53,53 @@ export class ProductListComponent implements OnInit {
   }
 
   showDetails(id: string) {
-    this.productsService.getProduct(id).subscribe((data: Product) => {
-      this.productChosen = data;
-      this.toggleProductDetail();
-    });
-    
+    this.statusDetail = 'loading';
+    this.productsService.getProduct(id).subscribe(
+      (data: Product) => {
+        this.productChosen = data;
+        this.statusDetail = 'success';
+        this.toggleProductDetail();
+      },
+      (response) => {
+        this.statusDetail = 'error';
+        Swal.fire({
+          icon: 'error',
+          title: response.error.message,
+          text: 'Try again later',
+          confirmButtonText: 'OK',
+        });
+      }
+    );
   }
 
+  createProduct() {
+    this.productsService
+      .createProduct(this.productChosen)
+      .subscribe((data: Product) => {
+        this.products.push(data);
+      });
+  }
+
+  readAndUpdateProduct(id: string) {
+    this.productsService
+      .getProduct(id)
+      .pipe(
+        switchMap((product: Product) => {
+          product.title = 'Updated';
+          return this.productsService.updateProduct(id, product);
+        })
+      )
+      .subscribe((data: Product) => {
+        console.log(data);
+      });
+  }
+
+  loadMoreProducts() {
+    this.productsService
+      .getAllProducts(this.limit, this.offset)
+      .subscribe((data: Product[]) => {
+        this.products = this.products.concat(data);
+        this.offset += this.limit;
+      });
+  }
 }
