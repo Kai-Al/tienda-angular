@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../models/product.model';
-import { StoreService } from '../../services/store.service';
-import { ProductsService } from '../../services/products.service';
+import { Product } from '../../../models/product.model';
+import { StoreService } from '../../../services/store.service';
+import { ProductsService } from '../../../services/products.service';
 import Swal from 'sweetalert2';
 import { switchMap } from 'rxjs/operators';
 
