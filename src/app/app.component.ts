@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilesService } from './services/files.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private filesService: FilesService) {}
 }
