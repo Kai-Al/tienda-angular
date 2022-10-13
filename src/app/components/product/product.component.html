@@ -1,11 +1,13 @@
 <div class="card">
-  <app-img
-    *ngIf="product.images.length > 0"
-    [img]="product.images[0]"
-  ></app-img>
-  <h1 class = "card__title">{{ product.title }}</h1>
-  <p class = "card__text">{{ product.description }}</p>
-  <h2 class = "card__price">{{ product.price | currency: "US" }}</h2>
+  <a [routerLink]="['/product', product.id]">
+    <app-img
+      *ngIf="product.images.length > 0"
+      [img]="product.images[0]"
+    ></app-img>
+  </a>
+  <h1 class="card__title">{{ product.title }}</h1>
+  <p class="card__text">{{ product.description }}</p>
+  <h2 class="card__price">{{ product.price | currency: "US" }}</h2>
   <button class="card__button" (click)="details()">Details</button>
   <button class="card__button" (click)="addToCart()">Add to cart</button>
 </div>
