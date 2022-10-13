@@ -12,18 +12,26 @@ import { ProductDetailComponent } from './website/pages/product-detail/product-d
 import { LayoutComponent } from './website/components/layout/layout.component';
 
 const routes: Routes = [
-  { path: '', component: LayoutComponent, children: [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'category/:id', component: CategoryComponent },
-    { path: 'product/:id', component: ProductDetailComponent },
-    { path: 'my-cart', component: MyCartComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'recovery', component: RecoveryComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: '**', component: NotFoundComponent },
-]},
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'category/:id', component: CategoryComponent },
+      { path: 'product/:id', component: ProductDetailComponent },
+      { path: 'my-cart', component: MyCartComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'recovery', component: RecoveryComponent },
+      { path: 'profile', component: ProfileComponent },
+    ],
+  },
+  {
+    path: 'cms',
+    loadChildren: () => import('./cms/cms.module').then(m => m.CmsModule),
+  },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
