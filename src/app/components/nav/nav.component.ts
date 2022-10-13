@@ -9,7 +9,6 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-  token: string = '';
   counter: number = 0;
   profile: User | null = null;
 
@@ -32,15 +31,12 @@ export class NavComponent implements OnInit {
 
   login() {
     this.authService.login('john@gmail.com', '123456').subscribe((res) => {
-      this.token = res.access_token;
-      console.log(res.access_token);
       this.getProfile();
     });
   }
 
   getProfile() {
-    this.authService.getProfile(this.token).subscribe((res) => {
-      console.log(res);
+    this.authService.getProfile().subscribe((res) => {
       this.profile = res;
     });
   }

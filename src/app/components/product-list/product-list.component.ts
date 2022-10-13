@@ -14,6 +14,9 @@ export class ProductListComponent implements OnInit {
   myProducts: Product[] = [];
   totalValue: number = 0;
   products: Product[] = [];
+  limit: number = 10;
+  offset: number = 1;
+
   productChosen: Product = {
     id: '',
     title: '',
@@ -26,8 +29,7 @@ export class ProductListComponent implements OnInit {
     },
   };
 
-  limit: number = 10;
-  offset: number = 0;
+
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
