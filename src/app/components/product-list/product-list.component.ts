@@ -1,4 +1,4 @@
-import { Component, Input, Output,  EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -15,6 +15,11 @@ export class ProductListComponent {
   totalValue: number = 0;
   @Input() products: Product[] = [];
   @Output() loadMore = new EventEmitter();
+  @Input() set productId(id: string | null) {
+    if (id) {
+      this.showDetails(id);
+    }
+  }
 
   productChosen: Product = {
     id: '',
@@ -27,7 +32,6 @@ export class ProductListComponent {
       name: '',
     },
   };
-
 
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
@@ -55,7 +59,10 @@ export class ProductListComponent {
       (data: Product) => {
         this.productChosen = data;
         this.statusDetail = 'success';
-        this.toggleProductDetail();
+        if(!this.showProductDetail) {
+          this.toggleProductDetail();
+        }
+        
       },
       (response) => {
         this.statusDetail = 'error';
@@ -91,9 +98,7 @@ export class ProductListComponent {
       });
   }
 
- 
- onLoadMore() {
+  onLoadMore() {
     this.loadMore.emit();
   }
-  
 }
