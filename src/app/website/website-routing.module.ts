@@ -10,6 +10,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ExitGuard } from '../guards/exit.guard';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
       { path: 'product/:id', component: ProductDetailComponent },
       { path: 'my-cart', component: MyCartComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      {
+        path: 'register',
+        canDeactivate: [ExitGuard],
+        component: RegisterComponent,
+      },
       { path: 'recovery', component: RecoveryComponent },
       {
         path: 'profile',
