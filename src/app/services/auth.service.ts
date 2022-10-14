@@ -28,4 +28,8 @@ export class AuthService {
   getProfile() {
     return this.http.get<User>(`${this.apiUrl}/profile`);
   }
+
+  logout() {
+    this.tokenService.removeToken();
+  }
 }
