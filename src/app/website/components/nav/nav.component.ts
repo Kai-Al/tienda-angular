@@ -40,7 +40,7 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    this.authService.login('john@mail.com', 'changeme').subscribe((res) => {
+    this.authService.login('admin@mail.com', 'admin123').subscribe((res) => {
       this.getProfile();
       this.router.navigate(['/profile']);
     });

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -7,13 +6,15 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -26,11 +27,11 @@ export class AuthGuard implements CanActivate {
     | UrlTree {
     return this.authService.user$.pipe(
       map((user) => {
-        if (!user) {
-          this.router.navigate(['/home']);
-          return false;
+        if (user?.role === "admin") {
+          return true;
         }
-        return true;
+        this.router.navigate(['/home']);
+        return false;
       })
     );
   }
