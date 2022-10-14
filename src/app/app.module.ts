@@ -10,7 +10,7 @@ import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { NotFoundComponent } from './not-found/not-found.component';
-
+import { QuicklinkModule} from 'ngx-quicklink';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +22,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     FormsModule,
     SwiperModule,
     HttpClientModule,
+    QuicklinkModule
   ],
   providers: [
     {
